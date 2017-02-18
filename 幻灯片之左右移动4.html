@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	*{padding: 0; margin: 0; list-style: none;}
+	#box{width: 840px; height:305px;  border:1px solid #000; margin:50px auto; position:relative; overflow:hidden;}
+	#box ul{position: absolute; left:0; top:0;}
+	#box ul li{float:left;}
+	#box ul li img{vertical-align: top;}
+	#box ol{position:absolute; right:0; bottom:0;}
+	#box ol li{width: 30px; height: 30px; background: orange; margin:10px; float:left; text-indent:-999em;}
+	#box ol li.on{background: #ccc;}
+	</style>
+	<script src="move4.js"></script>
+	<script>
+		window.onload=function(){
+			var oBox=document.getElementById('box');
+			var oUl=oBox.children[0];
+			var aLi=oUl.children;
+			var oOl=oBox.children[1];
+			var aBtn=oOl.children;
+
+			//设置oUl的宽度=一个li的宽度*li的个数
+			oUl.style.width=aLi[0].offsetWidth*aLi.length+'px';
+			for(var i=0;i<aBtn.length;i++){
+				(function(index){
+					aBtn[i].onmouseover=function(){
+						for(var i=0;i<aBtn.length;i++){
+							aBtn[i].className='';
+						}
+						this.className='on';
+						// oUl.style.left=-index*aLi[0].offsetWidth+'px';
+						move(oUl,{left:-index*aLi[0].offsetWidth});
+					}
+				})(i);
+			}
+
+		}
+
+		//每次移动的left值正好是一个li的宽度，可以根据索引来判断移动的距离
+	</script>
+</head>
+<body>
+	<div id="box">
+		<ul>
+			<li>
+				<img src="img/0.jpg" alt="">
+			</li>
+			<li>
+				<img src="img/1.jpg" alt="">
+			</li>
+			<li>
+				<img src="img/2.jpg" alt="">
+			</li>
+			<li>
+				<img src="img/3.jpg" alt="">
+			</li>
+		</ul>
+		<ol>
+			<li class="on">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ol>
+	</div>
+</body>
+</html>
